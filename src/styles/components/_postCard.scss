@@ -1,0 +1,35 @@
+@import '../utils/variables.scss';
+@import '../utils/mixins.scss';
+
+.post-card{
+    background-color: $item-bg;
+    width: 56%;
+    padding: 2rem 0;
+    margin: 1.5rem auto;
+    border-radius: 5px;
+}
+
+.title{
+    color: $txt-color;
+}
+
+.excerpt{
+    width: 80%;
+    margin: 1rem auto;
+    text-align: justify;
+}
+
+.featured-image{
+    width: 80%;
+    border-radius: 5px;
+}
+
+.author{
+    text-align: right;
+    width: 80%;
+    margin: 1rem auto;
+}
+
+.author a{
+    color: $txt-color;
+}

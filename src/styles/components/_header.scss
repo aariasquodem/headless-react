@@ -1,0 +1,11 @@
+@import '../utils/variables.scss';
+@import '../utils/mixins.scss';
+
+header{
+    background-color: $primary;
+    padding: $med;
+}
+
+.page-title{
+    color: $title-color;
+}

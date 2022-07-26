@@ -1,0 +1,29 @@
+@import './variables.scss';
+
+@mixin card{
+    display: flex;
+    flex-direction: column;
+    justify-content: space-evenly;
+    margin-top: $big;
+    margin-left: auto;
+    margin-right: auto;
+    padding: $sml;
+    width: 56%;
+    background-color: $item-bg;
+    border-radius: 5px;
+    box-shadow: $shadow-card;
+}
+
+@mixin card-container{
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-evenly;
+    width: 90%;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+@mixin flex-evenly{
+    display: flex;
+    justify-content: space-evenly;
+}

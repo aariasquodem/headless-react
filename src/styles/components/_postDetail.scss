@@ -1,0 +1,26 @@
+@import '../utils/variables.scss';
+@import '../utils/mixins.scss';
+
+.article-body{
+    @include card;
+}
+
+.article-body h2,
+.article-body h5{
+    margin-top: $med;
+    color: $txt-color;
+}
+
+.article-body img{
+    width: 80%;
+    margin-left: auto;
+    margin-right: auto;
+    border-radius: 5px;
+    margin-top: $med;
+}
+
+.article-body p {
+    margin: $med auto;
+    text-align: justify;
+    width: 85%;
+}

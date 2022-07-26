@@ -1,0 +1,12 @@
+@import '../utils/variables.scss';
+@import '../utils/mixins.scss';
+
+.menu__box{
+    list-style: none;
+    @include flex-evenly;
+}
+
+.menu__item{
+    color: $title-color;
+    font-size: 1.5rem;
+}
