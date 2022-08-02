@@ -1,6 +1,7 @@
 import React, {useEffect, useState} from "react";
 import axios from 'axios';
 import AuthorCard from '../AuthorCard';
+import { v4 as uuidv4 } from 'uuid';
 
 const Authors = () => {
 
@@ -34,7 +35,7 @@ const Authors = () => {
     fetchAuthors()
   }, []);
 
-  const paintCards = () => authors.map((author, id)=> <AuthorCard author={author} key={id}/>);
+  const paintCards = () => authors.map((author, id)=> <AuthorCard author={author} key={uuidv4()}/>);
 
   return <div>{paintCards()}</div>;
 };

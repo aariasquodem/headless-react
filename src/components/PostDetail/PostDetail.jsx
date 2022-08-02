@@ -2,12 +2,36 @@ import React, {useEffect, useState} from 'react';
 import axios from 'axios';
 import { CircleLoader } from 'react-spinners';
 import {Link} from 'react-router-dom';
+import { v4 as uuidv4 } from 'uuid';
+import { gql, useMutation } from '@apollo/client';
 import CommentCard from '../CommentCard';
+
+const POST_COMMENT = gql`
+mutation CREATE_COMMENT($commentOn: Int!, $content: String!, $author: String!) {
+  createComment(input: {
+    commentOn: $commentOn, 
+    content: $content, 
+    author: $author
+  }) {
+    success
+    comment {
+      id
+      content
+      author {
+        node {
+          name
+        }
+      }
+    }
+  }
+}
+`
 
 const PostDetail = () => {
 
   const [postData, setPostData] = useState();
   const [comments, setComments] = useState([]);
+  const [postComment] = useMutation(POST_COMMENT);
 
   useEffect(() => {
     const post = async(id) => {
@@ -30,6 +54,7 @@ const PostDetail = () => {
                       name
                     }
                   }
+                  id
                 }
               }
               title(format: RENDERED)
@@ -39,13 +64,15 @@ const PostDetail = () => {
                   altText
                 }
               }
+              databaseId
             }
           }`
         });
         const json = await res;
         const post = json.data.data;
+        const orderComments = post.post.comments.nodes.reverse();
         setPostData(post);
-        setComments(post.post.comments.nodes);
+        setComments(orderComments);
       } catch (error) {
         console.log('error', error);
       }
@@ -54,18 +81,33 @@ const PostDetail = () => {
     post(id);
   }, []);
 
-  console.log('Esto es postData', postData);
-
-  const paintComments = () => comments.map((comment, i) =><CommentCard comment={comment} id={i}/>);
+  const paintComments = () => comments.map((comment, i) =><CommentCard comment={comment} key={uuidv4()}/>);
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    const author = e.target.elements.author.value;
-    const content = e.target.elements.content.value;
-    const comment = {'author':{'node':{'name': author}} , 'content': content};
-    if(author.length > 0 && content.length > 0 ){
+    const authorName = e.target.elements.author.value;
+    const contentBody = e.target.elements.content.value;
+    // const id = window.location.href.split('=')[1];
+    const comment = {'author':{'node':{'name': authorName}} , 'id': uuidv4(), 'content': contentBody};
+    if(authorName.length > 0 && contentBody.length > 0 ){
       setComments([...comments, comment]);
     };
+    // const data = JSON.stringify({
+    //   post: 238,
+    //   author_name: author,
+    //   author_email: "jhguyg@iufshg.com",
+    //   content: comment
+    // });
+//     axios({
+//     method: 'POST',
+//     url: 'http://gatsby.local/wp-json/wp/v2/comments',
+//     // headers: {
+//     //   'Content-Type': 'application/json',
+//     // },
+//     data: data
+// });
+    postComment({ variables: {'commentOn': postData.post.databaseId, 'content': contentBody, 'author': authorName}})
+    e.target.reset();
   }
 
   return <>{postData

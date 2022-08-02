@@ -1,6 +1,7 @@
 import React, {useEffect, useState} from "react";
 import axios from 'axios';
 import PostCard from '../PostCard';
+import { v4 as uuidv4 } from 'uuid';
 
 const PostByAuthor = () => {
 
@@ -47,7 +48,7 @@ const PostByAuthor = () => {
     postsByAuthor(slug);
   }, []);
 
-  const paintCards = () => postBy.map((post, id)=> <PostCard post={post.node} key={id}/>)
+  const paintCards = () => postBy.map((post, id)=> <PostCard post={post.node} key={uuidv4()}/>)
 
   return <div>{paintCards()}</div>;
 };

@@ -1,6 +1,7 @@
 import React, {useEffect, useState} from "react";
 import axios from 'axios';
 import PostCard from '../PostCard';
+import { v4 as uuidv4 } from 'uuid';
 
 const Home = () => {
 
@@ -44,7 +45,7 @@ const Home = () => {
     fetchPosts()
   }, []);
 
-  const paintCards = () => allPosts.map((post, id)=> <PostCard post={post} key={id}/>)
+  const paintCards = () => allPosts.map((post, id)=> <PostCard post={post} key={uuidv4()}/>)
 
   return <div>{paintCards()}</div>;
 };
