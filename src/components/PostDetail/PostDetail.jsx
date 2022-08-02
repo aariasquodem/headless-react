@@ -92,20 +92,6 @@ const PostDetail = () => {
     if(authorName.length > 0 && contentBody.length > 0 ){
       setComments([...comments, comment]);
     };
-    // const data = JSON.stringify({
-    //   post: 238,
-    //   author_name: author,
-    //   author_email: "jhguyg@iufshg.com",
-    //   content: comment
-    // });
-//     axios({
-//     method: 'POST',
-//     url: 'http://gatsby.local/wp-json/wp/v2/comments',
-//     // headers: {
-//     //   'Content-Type': 'application/json',
-//     // },
-//     data: data
-// });
     postComment({ variables: {'commentOn': postData.post.databaseId, 'content': contentBody, 'author': authorName}})
     e.target.reset();
   }
