@@ -24,3 +24,40 @@
     text-align: justify;
     width: 85%;
 }
+
+.article-comments{
+    @include card;
+    text-align: start;
+}
+
+.article-comments h3{
+    text-align: center;
+}
+
+.content-comment{
+    display: flex;
+    flex-direction: column;
+}
+
+.send-comment{
+    color: $secondary;
+    background-color: $primary;
+    border: none;
+    cursor: pointer;
+}
+
+.send-comment:hover{
+    box-shadow: $light-shadow;
+}
+
+.author-comment input:focus{
+    outline: none !important;
+    border:1px solid $primary;
+    box-shadow: $light-shadow;
+}
+
+textarea:focus{
+    outline: none !important;
+    border:1px solid $primary;
+    box-shadow: $light-shadow;
+}
