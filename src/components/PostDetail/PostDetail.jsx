@@ -71,6 +71,7 @@ const PostDetail = () => {
         const json = await res;
         const post = json.data.data;
         const orderComments = post.post.comments.nodes.reverse();
+        // console.log(post);
         setPostData(post);
         setComments(orderComments);
       } catch (error) {
@@ -87,12 +88,11 @@ const PostDetail = () => {
     e.preventDefault();
     const authorName = e.target.elements.author.value;
     const contentBody = e.target.elements.content.value;
-    // const id = window.location.href.split('=')[1];
     const comment = {'author':{'node':{'name': authorName}} , 'id': uuidv4(), 'content': contentBody};
     if(authorName.length > 0 && contentBody.length > 0 ){
       setComments([...comments, comment]);
     };
-    postComment({ variables: {'commentOn': postData.post.databaseId, 'content': contentBody, 'author': authorName}})
+    postComment({ variables: {'commentOn': postData.post.databaseId, 'content': contentBody, 'author': authorName}});
     e.target.reset();
   }
 
